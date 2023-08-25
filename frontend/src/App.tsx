@@ -17,11 +17,9 @@ function App() {
     const allowedDigits = Object.entries(activeDigits)
       .filter(([, value]) => value)
       .map(([key]) => Number(key));
-    const result = setToken(allowedDigits);
-    result.then((res) => {
-      if (res instanceof Error) {
-        setErrorMessage(res.message);
-      }
+    setToken({
+      digits: allowedDigits,
+      onError: (msg: string) => setErrorMessage(msg),
     });
   };
 
@@ -33,11 +31,9 @@ function App() {
       }
       tokenString += digit;
     });
-    const result = setValidToken(tokenString);
-    result.then((res) => {
-      if (res instanceof Error) {
-        setErrorMessage(res.message);
-      }
+    setValidToken({
+      token: tokenString,
+      onError: (msg: string) => setErrorMessage(msg),
     });
   };
 

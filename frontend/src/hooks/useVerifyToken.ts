@@ -3,15 +3,20 @@ import { fetchVerification } from "../utils/fetchs";
 
 export function useVerifyToken() {
   const [validToken, setValidToken] = useState<boolean>(false);
-  const setValidTokenWithFetch = (token: string) => {
-    return fetchVerification(token)
+  const setValidTokenWithFetch = ({
+    token,
+    onError,
+  }: {
+    token: string;
+    onError: (message: string) => void;
+  }) => {
+    fetchVerification(token)
       .then((isValid: string) => {
         let isValidToken = isValid === "true";
         setValidToken(isValidToken);
-        return isValidToken;
       })
       .catch((error: Error) => {
-        return error;
+        onError(error.message);
       });
   };
   return { validToken, setValidToken: setValidTokenWithFetch };
