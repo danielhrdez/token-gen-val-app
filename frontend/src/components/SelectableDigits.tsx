@@ -1,20 +1,16 @@
-import { digits } from "../constants";
+import { digits } from "../utils/constants";
 import { DigitBox } from "./DigitBox";
 import { SelectButton } from "./SelectButton";
 
 type SelectableDigitsProps = {
-  setActiveDigits: React.Dispatch<
-    React.SetStateAction<{
-      [key: number]: boolean;
-    }>
-  >;
+  onClick: (digit: number) => void;
   activeDigits: {
     [key: number]: boolean;
   };
 };
 
 export function SelectableDigits({
-  setActiveDigits,
+  onClick,
   activeDigits,
 }: SelectableDigitsProps) {
   return (
@@ -24,12 +20,7 @@ export function SelectableDigits({
           return (
             <SelectButton
               key={i}
-              onClick={() =>
-                setActiveDigits({
-                  ...activeDigits,
-                  [i]: !activeDigits[i],
-                })
-              }
+              onClick={() => onClick(i)}
               selected={activeDigits[i]}
             >
               <DigitBox digit={i} />

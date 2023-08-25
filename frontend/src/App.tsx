@@ -1,34 +1,46 @@
 import { useState } from "react";
 import "./App.css";
 import { TokenDisplay } from "./components/TokenDisplay";
-import type { Token } from "./types/token";
-import { defaultDigitsActive } from "./constants";
+import { defaultDigitsActive } from "./utils/constants";
 import { Button } from "./components/Button";
 import { SelectableDigits } from "./components/SelectableDigits";
+import { useToken } from "./hooks/useToken";
+import { useVerifyToken } from "./hooks/useVerifyToken";
 
 function App() {
-  const [token, setToken] = useState<Token>("0000000000000000");
+  const { token, setToken } = useToken();
   const [activeDigits, setActiveDigits] = useState(defaultDigitsActive);
+  const { validToken, setValidToken } = useVerifyToken();
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
   const handleGenerate = () => {
-    async function randomToken() {
-      return token
-        .split("")
-        .map(() => {
-          const activeDigitsArray = Object.entries(activeDigits)
-            .filter(([, value]) => value)
-            .map(([key]) => Number(key));
-          const randomElement =
-            activeDigitsArray[
-              Math.floor(Math.random() * activeDigitsArray.length)
-            ];
-          return randomElement;
-        })
-        .join("") as Token;
-    }
-    randomToken()
-      .then((token) => setToken(token))
-      .catch(console.error);
+    const allowedDigits = Object.entries(activeDigits)
+      .filter(([, value]) => value)
+      .map(([key]) => Number(key));
+    const result = setToken(allowedDigits);
+    result.then((res) => {
+      if (res instanceof Error) {
+        setErrorMessage(res.message);
+      }
+    });
   };
+
+  const handleValidate = () => {
+    let tokenString = "";
+    token.forEach((digit, index) => {
+      if (index % 4 === 0 && index !== 0) {
+        tokenString += "-";
+      }
+      tokenString += digit;
+    });
+    const result = setValidToken(tokenString);
+    result.then((res) => {
+      if (res instanceof Error) {
+        setErrorMessage(res.message);
+      }
+    });
+  };
+
   return (
     <main className="flex flex-col items-center gap-2 justify-around h-full max-h-[500px]">
       <h1 className="text-2xl sm:text-4xl font-semibold text-start">
@@ -38,15 +50,31 @@ function App() {
       <div className="flex justify-between w-full max-w-sm gap-2">
         <div className="flex flex-col">
           Active digits:
-          <SelectableDigits {...{ setActiveDigits, activeDigits }} />
+          <SelectableDigits
+            activeDigits={activeDigits}
+            onClick={(i) =>
+              setActiveDigits({
+                ...activeDigits,
+                [i]: !activeDigits[i],
+              })
+            }
+          />
         </div>
         <div className="flex flex-col justify-center items-center w-full gap-2">
           <Button onClick={handleGenerate}>Generate</Button>
-          <Button onClick={() => {}} primary>
+          <Button onClick={handleValidate} primary>
             Validate
           </Button>
+          {validToken ? (
+            <div className="text-green-500 text-center">Valid token</div>
+          ) : (
+            <div className="text-red-500 text-center">Invalid token</div>
+          )}
         </div>
       </div>
+      {errorMessage && (
+        <div className="text-red-500 text-center">{errorMessage}</div>
+      )}
     </main>
   );
 }

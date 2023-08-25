@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { Token } from "../types/token";
 import { splitByHalfs } from "../utils/splitByHalfs";
 import { DigitBox } from "./DigitBox";
@@ -12,6 +13,12 @@ function FlexBox({ children }: { children: React.ReactNode }) {
 
 export function TokenDisplay({ token }: TokenDisplayProps) {
   const splittedToken = splitByHalfs(token);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <div>
       Token:
@@ -23,6 +30,16 @@ export function TokenDisplay({ token }: TokenDisplayProps) {
                 {quarter.map((digit, k) => (
                   <DigitBox key={i + j + k} digit={digit} />
                 ))}
+                {windowWidth > 470 && j === 0 && (
+                  <span className="w-5 h-10 flex justify-center items-center">
+                    -
+                  </span>
+                )}
+                {windowWidth > 930 && j !== 0 && i === 0 && (
+                  <span className="w-5 h-10 flex justify-center items-center">
+                    -
+                  </span>
+                )}
               </FlexBox>
             ))}
           </FlexBox>
