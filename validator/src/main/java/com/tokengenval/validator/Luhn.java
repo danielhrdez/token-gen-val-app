@@ -1,15 +1,26 @@
 package com.tokengenval.validator;
 
+/**
+ * Validates a token using the Luhn algorithm.
+ */
 public class Luhn {
     private int checkDigit;
     private String payload;
 
+    /**
+     * Constructor.
+     * @param tokenString The token to validate.
+     */
     public Luhn(String tokenString) {
         Token token = new Token(tokenString);
         this.checkDigit = token.getCheckDigit();
         this.payload = token.getPayload();
     }
 
+    /**
+     * Validates the token.
+     * @return Whether the token is valid.
+     */
     public boolean validate() {
         int sum = 0;
         for (int i = payload.length() - 1; i >= 0; i--) {

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./App.css";
 import { TokenDisplay } from "./components/TokenDisplay";
 import { defaultDigitsActive } from "./utils/constants";
 import { Button } from "./components/Button";
@@ -7,12 +6,20 @@ import { SelectableDigits } from "./components/SelectableDigits";
 import { useToken } from "./hooks/useToken";
 import { useVerifyToken } from "./hooks/useVerifyToken";
 
+/**
+ * Main app component
+ * @description Renders the main app component
+ */
 function App() {
   const { token, setToken } = useToken();
   const [activeDigits, setActiveDigits] = useState(defaultDigitsActive);
   const { validToken, setValidToken } = useVerifyToken();
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  /**
+   * Handles the generate button click
+   * @description Generates and set a new token
+   */
   const handleGenerate = () => {
     const allowedDigits = Object.entries(activeDigits)
       .filter(([, value]) => value)
@@ -23,6 +30,10 @@ function App() {
     });
   };
 
+  /**
+   * Handles the validate button click
+   * @description Validates the token
+   */
   const handleValidate = () => {
     let tokenString = "";
     token.forEach((digit, index) => {

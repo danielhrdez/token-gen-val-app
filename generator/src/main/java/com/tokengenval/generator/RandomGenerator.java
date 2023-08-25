@@ -1,8 +1,15 @@
 package com.tokengenval.generator;
 
+/**
+ * Generates a random token.
+ */
 public class RandomGenerator {
     private int[] allowedDigits;
 
+    /**
+     * Constructor.
+     * @param numbers The digits allowed in the token.
+     */
     public RandomGenerator(int[] numbers) {
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i] < 0 || numbers[i] > 9) {
@@ -12,6 +19,10 @@ public class RandomGenerator {
         this.allowedDigits = numbers;
     }
 
+    /**
+     * Generates a random token.
+     * @return The generated token.
+     */
     public String random() {
         StringBuffer sb = new StringBuffer("XXXX-XXXX-XXXX-XXXX");
         for (int i = 0; i < sb.length(); i++) {

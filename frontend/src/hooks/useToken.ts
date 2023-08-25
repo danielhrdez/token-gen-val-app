@@ -3,6 +3,11 @@ import { useState } from "react";
 import { defaultToken } from "../utils/constants";
 import { fetchGeneration } from "../utils/fetchs";
 
+/**
+ * A hook that manages the token.
+ * @param initialToken The initial token.
+ * @returns The token and a function to set the token.
+ */
 export function useToken(initialToken?: Token) {
   const [token, setToken] = useState<Token>(initialToken || defaultToken);
   const setTokenWithFetch = ({

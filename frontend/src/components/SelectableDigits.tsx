@@ -9,6 +9,10 @@ type SelectableDigitsProps = {
   };
 };
 
+/**
+ * SelectableDigits component
+ * @description Renders the selectable digits in a form of calc buttons
+ */
 export function SelectableDigits({
   onClick,
   activeDigits,

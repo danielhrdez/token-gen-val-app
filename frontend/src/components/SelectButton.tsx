@@ -4,6 +4,10 @@ type SelectButtonProps = {
   selected: boolean;
 };
 
+/**
+ * SelectButton component
+ * @description Renders a button that can be selected
+ */
 export function SelectButton({
   children,
   onClick,

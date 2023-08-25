@@ -2,6 +2,10 @@ type DigitBoxProps = {
   digit: number;
 };
 
+/**
+ * DigitBox component
+ * @description Renders a digit box
+ */
 export function DigitBox({ digit }: DigitBoxProps) {
   return (
     <span

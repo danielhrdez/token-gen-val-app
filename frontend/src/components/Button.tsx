@@ -4,6 +4,10 @@ type ButtonProps = {
   primary?: boolean;
 };
 
+/**
+ * Button component
+ * @description Renders a button
+ */
 export function Button({ children, onClick, primary }: ButtonProps) {
   return (
     <button
