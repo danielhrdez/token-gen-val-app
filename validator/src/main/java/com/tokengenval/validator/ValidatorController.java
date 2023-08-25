@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ValidatorController {
     /**
      * Validates a token.
-     * @param token The token to validate.
+     * @param token The token to validate, must be a string with quotes.
      * @return Whether the token is valid.
      */
     @PostMapping("/validate")

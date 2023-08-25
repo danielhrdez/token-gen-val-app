@@ -11,6 +11,9 @@ public class RandomGenerator {
      * @param numbers The digits allowed in the token.
      */
     public RandomGenerator(int[] numbers) {
+        if (numbers.length < 1) {
+            throw new IllegalArgumentException("Allowed digits must be at least one");
+        }
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i] < 0 || numbers[i] > 9) {
                 throw new IllegalArgumentException("Allowed digits must be between 0 and 9");
