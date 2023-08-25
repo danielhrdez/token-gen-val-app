@@ -1,23 +1,33 @@
 import type { Token } from "../types/token";
+import { splitByHalfs } from "../utils/splitByHalfs";
 import { DigitBox } from "./DigitBox";
 
 type TokenDisplayProps = {
   token: Token;
 };
 
+function FlexBox({ children }: { children: React.ReactNode }) {
+  return <div className="flex justify-center flex-wrap gap-2">{children}</div>;
+}
+
 export function TokenDisplay({ token }: TokenDisplayProps) {
+  const splittedToken = splitByHalfs(token);
   return (
-    <div className="flex items-center justify-center gap-1">
-      {token.split("").map((t, i) => {
-        return (
-          <>
-            <DigitBox key={t} digit={parseInt(t, 10)} />
-            {i % 4 === 3 && i !== token.length - 1 ? (
-              <span className="text-2xl p-1 h-10 w-10">-</span>
-            ) : null}
-          </>
-        );
-      })}
+    <div>
+      Token:
+      <FlexBox>
+        {splittedToken.map((half, i) => (
+          <FlexBox key={i}>
+            {half.map((quarter, j) => (
+              <FlexBox key={i + j}>
+                {quarter.map((digit, k) => (
+                  <DigitBox key={i + j + k} digit={digit} />
+                ))}
+              </FlexBox>
+            ))}
+          </FlexBox>
+        ))}
+      </FlexBox>
     </div>
   );
 }
