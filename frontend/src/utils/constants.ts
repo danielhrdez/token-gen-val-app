@@ -3,7 +3,10 @@ import { Token } from "../types/token";
 export const digits = Array.from({ length: 10 }).map((_, i) => i);
 
 export const defaultToken: Token = [
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0,
 ];
 
 export const defaultDigitsActive: Record<number, boolean> = {
