@@ -1,5 +1,7 @@
+import { Digit } from "../types/digits";
+
 type DigitBoxProps = {
-  digit: number;
+  digit: Digit;
 };
 
 /**

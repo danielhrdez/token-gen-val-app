@@ -1,6 +1,7 @@
+import { ActiveDigits, Digit } from "../types/digits";
 import { Token } from "../types/token";
 
-export const digits = Array.from({ length: 10 }).map((_, i) => i);
+export const digits = Array.from({ length: 10 }).map((_, i) => i) as Digit[];
 
 export const defaultToken: Token = [
   0, 0, 0, 0,
@@ -9,7 +10,7 @@ export const defaultToken: Token = [
   0, 0, 0, 0,
 ];
 
-export const defaultDigitsActive: Record<number, boolean> = {
+export const defaultDigitsActive: ActiveDigits = {
   0: true,
   1: true,
   2: true,

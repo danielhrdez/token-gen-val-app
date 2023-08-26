@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Token } from "../types/token";
-import { splitByHalfs } from "../utils/splitByHalfs";
+import { splitByFour } from "../utils/splitByFour";
 import { DigitBox } from "./DigitBox";
 
 type TokenDisplayProps = {
@@ -20,7 +20,7 @@ function FlexBox({ children }: { children: React.ReactNode }) {
  * @description Renders the token
  */
 export function TokenDisplay({ token }: TokenDisplayProps) {
-  const splittedToken = splitByHalfs(token);
+  const splittedToken = splitByFour(token);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);

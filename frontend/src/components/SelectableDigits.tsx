@@ -1,12 +1,11 @@
+import { ActiveDigits, Digit } from "../types/digits";
 import { digits } from "../utils/constants";
 import { DigitBox } from "./DigitBox";
 import { SelectButton } from "./SelectButton";
 
 type SelectableDigitsProps = {
-  onClick: (digit: number) => void;
-  activeDigits: {
-    [key: number]: boolean;
-  };
+  onClick: (digit: Digit) => void;
+  activeDigits: ActiveDigits;
 };
 
 /**
