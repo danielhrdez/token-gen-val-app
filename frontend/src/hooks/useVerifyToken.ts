@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { fetchVerification } from "../utils/fetchs";
+import { Token } from "../types/token";
 
 /**
  * A hook that manages the verification result.
@@ -11,13 +12,12 @@ export function useVerifyToken() {
     token,
     onError,
   }: {
-    token: string;
+    token: Token;
     onError: (message: string) => void;
   }) => {
     fetchVerification(token)
       .then((isValid: string) => {
-        let isValidToken = isValid === "true";
-        setValidToken(isValidToken);
+        setValidToken(isValid === "true");
       })
       .catch((error: Error) => {
         onError(error.message);

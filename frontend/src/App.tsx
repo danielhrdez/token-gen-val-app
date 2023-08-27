@@ -5,12 +5,13 @@ import { Button } from "./components/Button";
 import { SelectableDigits } from "./components/SelectableDigits";
 import { useToken } from "./hooks/useToken";
 import { useVerifyToken } from "./hooks/useVerifyToken";
+import { Digit } from "./types/digits";
 
 /**
  * Main app component
  * @description Renders the main app component
  */
-function App() {
+export function App() {
   const { token, setToken } = useToken();
   const [activeDigits, setActiveDigits] = useState(defaultDigitsActive);
   const { validToken, setValidToken } = useVerifyToken();
@@ -23,7 +24,7 @@ function App() {
   const handleGenerate = () => {
     const allowedDigits = Object.entries(activeDigits)
       .filter(([, value]) => value)
-      .map(([key]) => Number(key));
+      .map(([key]) => Number(key) as Digit);
     setToken({
       digits: allowedDigits,
       onError: (msg: string) => setErrorMessage(msg),
@@ -35,15 +36,8 @@ function App() {
    * @description Validates the token
    */
   const handleValidate = () => {
-    let tokenString = "";
-    token.forEach((digit, index) => {
-      if (index % 4 === 0 && index !== 0) {
-        tokenString += "-";
-      }
-      tokenString += digit;
-    });
     setValidToken({
-      token: tokenString,
+      token,
       onError: (msg: string) => setErrorMessage(msg),
     });
   };
@@ -85,5 +79,3 @@ function App() {
     </main>
   );
 }
-
-export default App;

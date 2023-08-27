@@ -2,6 +2,7 @@ import { Token } from "../types/token";
 import { useState } from "react";
 import { defaultToken } from "../utils/constants";
 import { fetchGeneration } from "../utils/fetchs";
+import { Digit } from "../types/digits";
 
 /**
  * A hook that manages the token.
@@ -14,7 +15,7 @@ export function useToken(initialToken?: Token) {
     digits,
     onError,
   }: {
-    digits: number[];
+    digits: Digit[];
     onError: (message: string) => void;
   }) => {
     fetchGeneration(digits)
